@@ -1,4 +1,5 @@
 import pandas as pd
+
 from utils.quick_plots import boxplot_per_column, histogram_per_column
 
 
@@ -23,6 +24,23 @@ def check_null_values(df):
         print('Error getting null vals')
 
 
+def check_duplicated_values(df):
+    try:
+        if df.duplicated().sum() > 0:
+            duplicated_counts = df.duplicated().sum()
+            duplicated_percentage = (df.duplicated().sum() / len(df)) * 100
+
+            duplicated_summary = [[df[df.duplicated()].columns.tolist()], duplicated_counts, duplicated_percentage]
+
+            return duplicated_summary
+
+        else:
+            return []
+
+    except:
+        print('Error getting duplicated vals')
+
+
 def df_summary(df):
     try:
         print("DataFrame summary:")
@@ -35,6 +53,12 @@ def df_summary(df):
             print(result)
         else:
             print("There are no null values")
+        print(f"\nDuplicated values:")
+        result = check_duplicated_values(df)
+        if result:
+            print(f"Columns: {result[0]} \nnum duplicated values: {result[1]} \n% duplicated values: {result[2]}")
+        else:
+            print("There are no duplicated values")
 
     except:
         print('Error getting df summary')
