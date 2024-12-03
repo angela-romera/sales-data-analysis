@@ -24,3 +24,12 @@ def histogram_per_column(df):
 
     plt.tight_layout()
     plt.show()
+
+
+def barplot_two_vars(df, x_var, y_var):
+    sns.barplot(data=df, x=x_var, y=y_var, estimator="sum", errorbar=None)
+
+    plt.xlabel(x_var)
+    plt.ylabel(y_var)
+
+    plt.show()
